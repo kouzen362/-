@@ -572,8 +572,13 @@ def plot_earthquakes(earthquakes, output_path='earthquake_map.png',
 # 7. 主程序
 # =============================================================================
 if __name__ == '__main__':
-    # 读取数据
-    data_file = r'd:\Antigravity\docu\震源.txt'
+    import os
+    
+    # 获取脚本所在目录
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # 读取数据 (数据文件应与脚本在同一目录)
+    data_file = os.path.join(script_dir, '震源.txt')
     earthquakes, is_jma_format = read_earthquake_data(data_file)
     
     print(f"共读取 {len(earthquakes)} 条地震记录")
@@ -637,11 +642,11 @@ if __name__ == '__main__':
     extent_full_territory = (119, 152, 20, 50)
     
     # =================================
-    # 绘制两张地图
+    # 绘制两张地图 (输出到脚本所在目录)
     # =================================
     
-    print("\n--- 绘制地图1: 日本本土四岛 ---")
-    output_path1 = r'd:\Antigravity\docu\earthquake_map_main_islands.png'
+    print("\n--- 绑制地图1: 日本本土四岛 ---")
+    output_path1 = os.path.join(script_dir, 'earthquake_map_main_islands.png')
     fig1, ax1 = plot_earthquakes(
         filtered_earthquakes, 
         output_path=output_path1,
@@ -650,8 +655,8 @@ if __name__ == '__main__':
         filter_info=filter_info
     )
     
-    print("\n--- 绘制地图2: 日本全境 ---")
-    output_path2 = r'd:\Antigravity\docu\earthquake_map_full_territory.png'
+    print("\n--- 绑制地图2: 日本全境 ---")
+    output_path2 = os.path.join(script_dir, 'earthquake_map_full_territory.png')
     fig2, ax2 = plot_earthquakes(
         filtered_earthquakes,
         output_path=output_path2,
@@ -661,4 +666,5 @@ if __name__ == '__main__':
     )
     
     print("\n两张地图均已生成完成!")
+
 
